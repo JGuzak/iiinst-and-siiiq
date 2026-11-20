@@ -1,0 +1,6 @@
+return {
+    include = {"src/.*"},
+    exclude = {"tests/.*"},
+    statsfile = "luacov.stats.out",
+    reportfile = "luacov.report.out",
+}

@@ -29,7 +29,7 @@ ensure_lua_toolchain() {
 
 ensure_lua_toolchain
 
-echo "Installing Lua test dependencies..."
-apt install lua-busted
+echo "Checking Lua test dependencies..."
+bash "$(dirname "${BASH_SOURCE[0]}")/setup-busted.sh"
 
 echo "Lua dev environment setup complete."

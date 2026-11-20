@@ -55,6 +55,39 @@
         "isDefault": true
       }
     },
+        {
+      "label": "Flash iiiano",
+      "type": "shell",
+      "windows": {
+        "command": "& .\\.venv\\Scripts\\diii.exe do '^^c'; if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }; & .\\.venv\\Scripts\\diii.exe upload src/grid/iiiano.lua; if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }; & .\\.venv\\Scripts\\diii.exe do 'fs_run_file(''lib.lua''); fs_run_file(''iiiano.lua'')'; exit $LASTEXITCODE"
+      },
+      "osx": {
+        "command": ".venv/bin/diii do '^^c' && .venv/bin/diii upload src/grid/iiiano.lua && .venv/bin/diii do \"fs_run_file('lib.lua'); fs_run_file('iiiano.lua')\""
+      },
+      "linux": {
+        "command": ".venv/bin/diii do '^^c' && .venv/bin/diii upload src/grid/iiiano.lua && .venv/bin/diii do \"fs_run_file('lib.lua'); fs_run_file('iiiano.lua')\""
+      },
+      "problemMatcher": [],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    },
+    {
+      "label": "Test",
+      "type": "shell",
+      "windows": {
+        "command": ".\\scripts\\test.ps1"
+      },
+      "osx": {
+        "command": "bash scripts/test.sh"
+      },
+      "linux": {
+        "command": "bash scripts/test.sh"
+      },
+      "problemMatcher": [],
+      "group": "test"
+    },
     {
       "label": "Lock Dependencies",
       "type": "shell",

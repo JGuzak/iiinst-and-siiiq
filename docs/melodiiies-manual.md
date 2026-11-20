@@ -9,7 +9,7 @@ Scale aware polyphonic step sequencer. Pattern and settings persist through rebo
 
 Relies on host device to provide MIDI clock.
 
-TODO: Fill this out more when I theory craft some more.
+TODO: Fill this out when I theory craft some more.
 
 ## Orientation
 

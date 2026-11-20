@@ -8,6 +8,7 @@ A collection of instrument and sequencer scripts for iii devices.
   - [Install diii](#install-diii)
   - [Launch diii](#launch-diii)
   - [Installing scripts locally](#installing-scripts-locally)
+- [Testing](#testing)
 - [Troubleshooting](#troubleshooting)
   - [Flip Device Mode](#flip-device-mode)
   - [DeviceNotFoundError(f"can't find iii device")](#devicenotfounderrorfcant-find-iii-device)
@@ -87,6 +88,10 @@ To exit `diii`, type `q` into the console and press `enter`. For other `diii` co
 ^^clear
 ^^upload <path to the script>
 ```
+
+## Testing
+
+Run the `Test` task in VS Code. On Windows, the task uses WSL and runs `scripts/test.sh`. The Windows `Setup Environment` task checks for Busted and LuaCov in the default WSL distribution. On Ubuntu, it installs missing dependencies and may ask for the WSL user's sudo password. On other WSL distributions, install Busted and LuaCov for the same Lua interpreter, then run setup again. On macOS or Linux, install both tools and run the same test task. Busted recursively discovers spec files under `tests/` and collects coverage. The report is saved to `luacov.report.out`; coverage statistics accumulate in `luacov.stats.out` across runs. Remove the stats file before a run if you want a fresh report.
 
 ## Troubleshooting
 

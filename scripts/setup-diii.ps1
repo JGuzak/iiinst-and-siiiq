@@ -16,8 +16,19 @@ if (Test-Path ".venv") {
 }
 
 uv venv
+if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 .\.venv\Scripts\Activate.ps1
 
 uv pip install -r requirements.txt
+if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+
+if (-not (Get-Command wsl.exe -ErrorAction SilentlyContinue)) {
+    Write-Error 'WSL is required to run the iiiano tests on Windows.'
+    exit 1
+}
+
+$repoRoot = Split-Path -Parent $PSScriptRoot
+& wsl.exe --cd $repoRoot bash scripts/setup-busted.sh
+if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
 Write-Host "Setup complete!"

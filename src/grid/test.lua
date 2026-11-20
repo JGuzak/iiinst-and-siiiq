@@ -1,4 +1,4 @@
-local DIM_BRIGHTNESS = 2
+local DIM_BRIGHTNESS = 3
 local MAX_BRIGHTNESS = 15
 
 grid_led_all(DIM_BRIGHTNESS)
