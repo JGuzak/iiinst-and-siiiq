@@ -1,60 +1,57 @@
-<h1>Siiiq</h1>
+# Iiinst & Siiiq
 
-- [Scripts](#scripts)
-  - [Percusiiions](#percusiiions)
-  - [Melodiiies](#melodiiies)
+A collection of instrument and sequencer scripts for monome iii devices.
 
 ## Scripts
 
-### Percusiiions
+| Script | Device | Description |
+| --- | --- | --- |
+| [iiiano](docs/iiiano-manual.md) ([PDF](manuals/iiiano-manual.pdf)) | Grid One and Grid Zero | USB MIDI keyboard with scale, velocity, and note-hold controls |
 
-A simple 16 step, 8 track, step sequencer. Pattern and settings persist through reboots.
+## Requirements
 
-Relies on host device to provide MIDI clock.
+- Grid One or Grid Zero in iii mode, with iii firmware that supports the v1.1 API. iiiano has been tested with [iii v1.1.2](https://github.com/monome/iii/releases/tag/v1.1.2).
+- Python 3.11 and [uv](https://docs.astral.sh/uv/) for the local development environment.
+- Busted and LuaCov to run tests with coverage. On Windows, the test task uses the default WSL distribution.
 
-There are two pages for this script:
+For firmware and device compatibility, see the [monome iii documentation](https://monome.org/docs/iii/).
 
-- Step
-- Settings
+## Setup
 
-**NOTE: Grid Zeros display both pages at the same time; top half is Settings, bottom half is Step.**
+Install Python 3.11 and uv, then run the `Setup Environment` task in VS Code, or run the setup script from the repository root:
 
-Reset the current page to default by holding all four corner buttons for 10 seconds.
+```powershell
+# Windows
+.\scripts\setup-diii.ps1
+```
 
-Toggle between step and settings pages by holding any four adjacent pads for 2 seconds.
+```bash
+# macOS or Linux
+source scripts/setup-diii.sh
+```
 
-**Step Page:**
+On Windows, setup also checks for Busted and LuaCov in the default WSL distribution. On Ubuntu, it installs missing dependencies and may request your sudo password. On other distributions, install both tools for the Lua interpreter used by Busted.
 
-Bright light
+## Upload and run iiiano
 
-**Settings Page:**
+Connect the grid in iii mode. In VS Code, run the `Flash iiiano` task or press `Ctrl+Shift+B`. The task stops the running script, uploads iiiano, loads the standard library, and starts iiiano.
 
-Each track has the following controls:
+To perform these steps in a terminal, activate the project virtual environment and run:
 
-- Mute/unmute
-- Clear
-- Reset on stop toggle
-- Manual reset (quantized to the incoming clock)
-- Speed multiplier
-- Record toggle
-  - Flashes while on
-  - Hold for 1 second to trigger one shot record which waits for the first step to start.
-- Velocity
-  - Hold to bring up velocity select view
-- Shuffle type (last 4 pads of the row)
-  - 0%
-  - Groove (range of 3)
-  - Custom (hold pad to "extract" the groove of the current track. Clears this shuffle pattern if the track sequence is empty when "extracting".)
+```bash
+diii do "^^c"
+diii upload src/grid/iiiano.lua
+diii do "fs_run_file('lib.lua'); fs_run_file('iiiano.lua')"
+```
 
-### Melodiiies
+Uploading alone does not start the script. For controls and optional startup configuration, see the [iiiano manual](docs/iiiano-manual.md).
 
-Scale aware polyphonic step sequencer. Pattern and settings persist through reboots.
+## Testing
 
-Relies on host device to provide MIDI clock.
+Run the `Test` task in VS Code. On Windows, it runs `scripts/test.sh` through WSL. On macOS or Linux, install Busted and LuaCov, then run the same task.
 
-There are two pages for this script:
+Busted discovers spec files recursively under `tests/`. LuaCov writes `luacov.report.out` and accumulates statistics in `luacov.stats.out`. Remove the stats file before a run if you want a fresh report.
 
-- Step
-- Settings
+## Credits
 
-**NOTE: Grid Zeros display both pages at the same time; top half is Settings, bottom half is Step.**
+Thanks to Juicy Noise Bits for testing early builds and suggesting features.
